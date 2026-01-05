@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>KSIB NEURO 2529 | Laporan 2025</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --primary:#0b5ed7;      /* Biru utama */
+  --secondary:#6f42c1;    /* Ungu */
+  --accent:#f4c430;       /* Kuning */
+  --bg:#f4f6fb;
+  --dark:#1f2937;
+}
+
+*{box-sizing:border-box;font-family:system-ui,-apple-system}
+
+body{margin:0;background:var(--bg);color:var(--dark)}
+
+/* HEADER */
+header{
+  background:white;
+  padding:12px 16px;
+  position:sticky;top:0;z-index:1000;
+  box-shadow:0 4px 12px rgba(0,0,0,.08)
+}
+.header-wrap{
+  display:flex;flex-wrap:wrap;
+  justify-content:space-between;align-items:center;
+}
+header img{height:45px}
+header h1{font-size:18px;color:var(--primary)}
+
+/* NAV */
+nav ul{
+  list-style:none;
+  display:flex;flex-wrap:wrap;
+  gap:14px;padding:10px 0 0;
+}
+nav a{
+  text-decoration:none;font-weight:600;
+  color:var(--dark);position:relative;
+}
+nav a::after{
+  content:'';position:absolute;
+  width:0;height:3px;
+  left:0;bottom:-4px;
+  background:var(--accent);
+  transition:.3s;
+}
+nav a:hover::after{width:100%}
+
+/* SECTION */
+section{
+  padding:50px 16px;
+  background:#eaf3ff; /* light blue */
+  margin-bottom:18px;
+}
+section h2{
+  color:var(--primary);
+  margin-bottom:20px;
+  border-left:6px solid var(--accent);
+  padding-left:12px;
+}
+
+.intro-layout{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:20px;
+  align-items:start;
+}
+
+.intro-photo img{
+  width:200px;                 /* passport size */
+  height:240px;
+  object-fit:cover;
+  border-radius:12px;
+  border:2px solid #000;       /* black border */
+  box-shadow:0 4px 10px rgba(0,0,0,.15);
+}
+
+@media(min-width:768px){
+  .intro-layout{
+    grid-template-columns:75% 25%;
+  }
+  .intro-photo{
+    display:flex;
+    justify-content:center;
+  }
+}
+
+.ajk-layout{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:20px;
+}
+
+.ajk-images img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:14px;
+  margin-bottom:12px;
+}
+
+@media(min-width:768px){
+  .ajk-layout{
+    grid-template-columns:35% 65%;
+  }
+}
+
+/* CARD */
+.card{
+  background:white;
+  padding:22px;
+  border-radius:16px;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+  margin-bottom:30px;
+}
+.card h3{
+  color:var(--secondary);
+  margin-bottom:10px;
+}
+.activity-detail{
+  display:none;
+  margin-top:12px;
+  font-size:14px;
+  background:#f8fbff;
+  padding:14px;
+  border-radius:12px;
+}
+
+.activity-detail h4{
+  margin:10px 0 4px;
+  color:var(--primary);
+}
+
+.activity-detail i{
+  margin-right:6px;
+  color:var(--secondary);
+}
+
+.more-btn{
+  margin-top:10px;
+  padding:8px 16px;
+  border:none;
+  border-radius:20px;
+  background:var(--primary);
+  color:white;
+  cursor:pointer;
+  font-size:13px;
+}
+.more-btn:hover{
+  background:#084298;
+}
+
+.activity-info{
+  margin:12px 0;
+  font-size:14px;
+}
+
+.activity-info h4{
+  color:var(--primary);
+  margin:10px 0 4px;
+}
+
+.more-btn{
+  margin-top:10px;
+  padding:8px 14px;
+  border:none;
+  border-radius:20px;
+  background:var(--primary);
+  color:white;
+  cursor:pointer;
+  font-size:13px;
+}
+.more-btn:hover{
+  background:#084298;
+}
+
+.feedback-form{
+  display:grid;
+  gap:10px;
+  max-width:400px;
+}
+
+.feedback-form input,
+.feedback-form textarea{
+  padding:8px 10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+.feedback-form button{
+  width:120px;
+  padding:8px;
+  border:none;
+  border-radius:20px;
+  background:var(--secondary);
+  color:white;
+  cursor:pointer;
+}
+
+.feedback-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  z-index:2000;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.feedback-modal-content{
+  background:white;
+  max-width:360px;
+  width:100%;
+  padding:30px 20px;
+  border-radius:18px;
+  text-align:center;
+  animation:popup .3s ease;
+}
+
+.feedback-modal-content i{
+  font-size:50px;
+  color:#28a745;
+  margin-bottom:10px;
+}
+
+.feedback-modal-content h3{
+  margin:10px 0;
+  color:var(--primary);
+}
+
+.feedback-modal-content p{
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.feedback-modal-content button{
+  padding:8px 22px;
+  border:none;
+  border-radius:20px;
+  background:var(--primary);
+  color:white;
+  cursor:pointer;
+}
+
+@keyframes popup{
+  from{transform:scale(.85);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:15px;
+}
+.gallery img{
+  width:100%;
+  height:140px;              /* standard thumbnail height */
+  object-fit:cover;          /* crop nicely */
+  border-radius:14px;
+  cursor:pointer;
+  transition:.3s;
+}
+.gallery img:hover{
+  transform:scale(1.05);
+  box-shadow:0 6px 15px rgba(0,0,0,.2);
+}
+
+/* DESKTOP */
+@media(min-width:768px){
+  .gallery img{
+    height:160px;
+  }
+}
+
+.carousel{
+  overflow:hidden;
+  position:relative;
+}
+
+.carousel-track{
+  display:flex;
+  gap:12px;
+  animation:slide 25s linear infinite;
+}
+
+.carousel img{
+  min-width:180px;
+}
+
+@keyframes slide{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
+.finance-layout{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:20px;
+}
+
+.finance-text{
+  font-size:15px;
+}
+
+.finance-balance{
+  font-size:22px;
+  color:var(--secondary);
+}
+
+.finance-images img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:14px;
+  box-shadow:0 6px 15px rgba(0,0,0,.15);
+}
+
+@media(min-width:768px){
+  .finance-layout{
+    grid-template-columns:40% 60%;
+    align-items:center;
+  }
+  .finance-images{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+}
+
+/* FOOTER */
+footer{
+  background:#111;color:white;
+  text-align:center;padding:24px;
+}
+footer a{
+  color:var(--accent);
+  margin:0 12px;font-size:22px;
+}
+
+/* MODAL */
+.modal{
+  display:none;position:fixed;
+  inset:0;background:rgba(0,0,0,.85);
+  justify-content:center;align-items:center;
+}
+.modal img{
+  max-width:90%;max-height:90%;
+  border-radius:16px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="header-wrap">
+  <div style="display:flex;gap:12px;align-items:center">
+    <img src="images/logo.jpg">
+    <h1>LAPORAN TAHUNAN KSIB NEURO 2025</h1>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#intro">Laman Utama</a></li>
+      <li><a href="#ajk">Ahli Jawatankuasa 2025</a></li>
+      <li><a href="#program">Program & Aktiviti</a></li>
+      <li><a href="#finance">Rekod Kewangan</a></li>
+      <li><a href="#contact">Hubungi Kami</a></li>
+    </ul>
+  </nav>
+</div>
+</header>
+
+<section id="intro">
+<h2>Pengenalan</h2>
+
+<div class="card intro-layout">
+
+  <!-- TEXT (LEFT) -->
+  <div class="intro-text">
+    Laporan tahunan rasmi program, aktiviti, kewangan dan analisa serta cadangan KSIB NEURO 2529 sepanjang tahun 2025 bagi menyokong kebajikan, akademik dan sahsiah pelajar tingkatan 1 pada tahun 2025 di Sekolah Menengah Agama Persekutuan (SMAP) Kajang.<br><br>
+
+    Ucapan terima kasih saya dan semua barisan AJK-AJK KSIB NEURO bagi tahun 2025, kepada semua yang terlibat, baik secara langsung atau tidak langsung, di dalam menjayakan segala bentuk program dan aktiviti, seperti yang akan dibentangkan kelak. Semoga semua berpuas hati di sepanjang tempoh kami memegang amanah yang telah Tuan Puan berikan. Adalah diharapkan agar hubungan ukhwah yang terbina dapat dikekalkan dan diteruskan oleh barisan AJK yang baharu kelak.<br><br>
+
+    Yang Menjalankan Amanah,<br>
+    <strong>Mohamad Fadhil Ahmad</strong><br>
+    <strong>Pengerusi KSIB NEURO 2025</strong>
+  </div>
+
+  <!-- PHOTO (RIGHT) -->
+  <div class="intro-photo">
+    <img src="images/pengerusi.jpeg" alt="Pengerusi KSIB">
+  </div>
+
+</div>
+</section>
+
+
+<section id="ajk">
+<h2>Ahli Jawatankuasa</h2>
+
+<div class="card ajk-layout">
+
+  <!-- LEFT SIDE (IMAGES) -->
+  <div class="ajk-images">
+    <img src="images/school.jpg" alt="School Photo">
+    <img src="images/administrators.jpg" alt="School Administrators">
+  </div>
+
+  <!-- RIGHT SIDE (TEXT) -->
+  <div class="ajk-text">
+    <strong>Pengerusi:</strong> Mohamad Fadhil<br>
+    <strong>Naib Pengerusi:</strong> Mohd Azlee<br>
+    <strong>Setiausaha:</strong> Lailatul Akmar<br>
+    <strong>Bendahari:</strong> Syamira<br><br>
+
+    <strong>AJK Bukan Akademik:</strong><br>
+    Afiza, Rusnah, Fairul,<br> Rahmanisah, Khahirol Nizam,<br> Sazaly, Nazri, Inatul Salmy,<br> Norasmah, Mohd Noor, Fadila,<br> Irwan, Syamsul, Firdaus<br><br>
+
+    <strong>AJK Akademik:</strong><br>
+    Shariza, Melissa, Siti Aiesyah,<br> Norhazwani, Syarifah Aisyah, Asuzi,<br> Juhaida,
+    Shaharizal, Sai’dan,<br> Muhd Aizuddin, Madihah, Liyana
+  </div>
+
+</div>
+</section>
+
+<section id="program">
+<h2>Program & Aktiviti 2025</h2>
+
+<!-- TEMPLATE ACTIVITY -->
+<!-- 1 -->
+<div class="card">
+<h3>Hari Pendaftaran Tingkatan 1 : 18 Feb 2025</h3>
+<div class="activity-info">
+
+  <button class="more-btn" onclick="toggleDetail(this)">
+    Klik di sini untuk maklumat lanjut
+  </button>
+
+  <div class="activity-detail">
+    <h4><i class="fas fa-bullseye"></i> Objektif</h4>
+    <p>Proses Pendaftaran Pelajar Tingkatan 1 tahun 2025.</p>
+
+    <h4><i class="fas fa-tasks"></i> Perancangan & Pelaksanaan</h4>
+    <p>Dilaksanakan mengikut takwim dan perancangan pihak sekolah.</p>
+
+    <h4><i class="fas fa-chart-line"></i> Pascanilai</h4>
+    <p>Program berjalan dengan lancar dan sangat teratur.</p>
+  </div>
+
+</div>
+
+<div class="gallery carousel">
+  <div class="carousel-track">
+<img src="images/registration/1.png" onclick="openImg(this)">
+<img src="images/registration/2.png" onclick="openImg(this)">
+<img src="images/registration/3.png" onclick="openImg(this)">
+<img src="images/registration/4.png" onclick="openImg(this)">
+<img src="images/registration/5.png" onclick="openImg(this)">
+<img src="images/registration/1.png" onclick="openImg(this)">
+<img src="images/registration/2.png" onclick="openImg(this)">
+<img src="images/registration/3.png" onclick="openImg(this)">
+<img src="images/registration/4.png" onclick="openImg(this)">
+<img src="images/registration/5.png" onclick="openImg(this)">
+<img src="images/registration/1.png" onclick="openImg(this)">
+<img src="images/registration/2.png" onclick="openImg(this)">
+<img src="images/registration/3.png" onclick="openImg(this)">
+<img src="images/registration/4.png" onclick="openImg(this)">
+<img src="images/registration/5.png" onclick="openImg(this)">
+  </div>
+</div>
+</div>
+
+<!-- 2 -->
+<div class="card">
+<h3>Penutupan MSR & Iftar Bersama Keluarga : 18 Mac 2025</h3>
+<div class="activity-info">
+
+  <button class="more-btn" onclick="toggleDetail(this)">
+    Klik di sini untuk maklumat lanjut
+  </button>
+
+  <div class="activity-detail">
+    <h4><i class="fas fa-bullseye"></i> Objektif</h4>
+    <p>Penutupan Minggu Silaturrahim dan Iftar Bersama Keluarga bagi mengeratkan ukhwah di antara anak-anak dan ibu bapa pelajar Tingkatan 1.</p>
+
+    <h4><i class="fas fa-tasks"></i> Perancangan & Pelaksanaan</h4>
+    <p>Sumbangan ikhlas kewangan dan makanan secara Pot Luck serta tempahan makanan dari Kantin Sekolah dan Menu Berbuka dari Dewan Makan. Sekitar 100 keluarga telah hadir bagi memberikan sokongan dan memeriahkan majlis. Penjenamaan Batch NEURO juga telah dilancarkan pada hari yang sama.</p>
+
+    <h4><i class="fas fa-chart-line"></i> Pascanilai</h4>
+    <p>Maklum balas positif diterima dan cadangan penambahbaikan dikenal pasti.</p>
+  </div>
+
+</div>
+
+<div class="gallery carousel">
+  <div class="carousel-track">
+<img src="images/msr-iftar/1.jpeg" onclick="openImg(this)">
+<img src="images/msr-iftar/2.jpeg" onclick="openImg(this)">
+<img src="images/msr-iftar/3.jpeg" onclick="openImg(this)">
+<img src="images/msr-iftar/4.jpeg" onclick="openImg(this)">
+<img src="images/msr-iftar/5.png" onclick="openImg(this)">
+<img src="images/msr-iftar/1.jpeg" onclick="openImg(this)">
+<img src="images/msr-iftar/2.jpeg" onclick="openImg(this)">
+<img src="images/msr-iftar/3.jpeg" onclick="openImg(this)">
+<img src="images/msr-iftar/4.jpeg" onclick="openImg(this)">
+<img src="images/msr-iftar/5.png" onclick="openImg(this)">
+<img src="images/msr-iftar/1.jpeg" onclick="openImg(this)">
+<img src="images/msr-iftar/2.jpeg" onclick="openImg(this)">
+<img src="images/msr-iftar/3.jpeg" onclick="openImg(this)">
+<img src="images/msr-iftar/4.jpeg" onclick="openImg(this)">
+<img src="images/msr-iftar/5.png" onclick="openImg(this)">
+  </div>
+</div>
+</div>
+
+<!-- 3 -->
+<div class="card">
+<h3>Majlis Riang Ria Aidilfitri : 12 Apr 2025</h3>
+<div class="activity-info">
+
+  <button class="more-btn" onclick="toggleDetail(this)">
+    Klik di sini untuk maklumat lanjut
+  </button>
+
+  <div class="activity-detail">
+    <h4><i class="fas fa-bullseye"></i> Objektif</h4>
+    <p>Sambutan Hari Raya Aidilfitri di peringkat sekolah dan melibatkan keseluruhan pelajar dan ibu bapa serta Tetamu Jemputan VIP.</p>
+
+    <h4><i class="fas fa-tasks"></i> Perancangan & Pelaksanaan</h4>
+    <p>Sumbangan sebanyak RM 30.00 bagi satu keluarga diperlukan bagi tempahan makanan dari Kantin Sekolah mengikut menu yang telah ditetapkan oleh pihak sekolah (Mee Kari dan Bihun Sup) serta seekor Kambing Golek bagi setiap tingkatan untuk kesemua tetamu.</p>
+
+    <h4><i class="fas fa-chart-line"></i> Pascanilai</h4>
+    <p>Program berjalan lancar dan mendapat maklum balas positif. Semakin ramai keluarga yang hadir dan memeriahkan majlis. Pengagihan menu pilihan ramai (Kambing Golek) perlu diperbaiki.</p>
+  </div>
+
+</div>
+
+<div class="gallery carousel">
+  <div class="carousel-track">
+<img src="images/raya/1.jpg" onclick="openImg(this)">
+<img src="images/raya/2.png" onclick="openImg(this)">
+<img src="images/raya/3.png" onclick="openImg(this)">
+<img src="images/raya/4.jpg" onclick="openImg(this)">
+<img src="images/raya/5.jpg" onclick="openImg(this)">
+<img src="images/raya/6.jpeg" onclick="openImg(this)">
+<img src="images/raya/7.jpeg" onclick="openImg(this)">
+<img src="images/raya/8.jpeg" onclick="openImg(this)">
+<img src="images/raya/1.jpg" onclick="openImg(this)">
+<img src="images/raya/2.png" onclick="openImg(this)">
+<img src="images/raya/3.png" onclick="openImg(this)">
+<img src="images/raya/4.jpg" onclick="openImg(this)">
+<img src="images/raya/5.jpg" onclick="openImg(this)">
+<img src="images/raya/6.jpeg" onclick="openImg(this)">
+<img src="images/raya/7.jpeg" onclick="openImg(this)">
+  </div>
+</div>
+</div>
+
+<!-- 4 -->
+<div class="card">
+<h3>Program Gotong Royong MADANI 2025 : 16 Ogos 2025</h3>
+<div class="activity-info">
+
+  <button class="more-btn" onclick="toggleDetail(this)">
+    Klik di sini untuk maklumat lanjut
+  </button>
+
+  <div class="activity-detail">
+    <h4><i class="fas fa-bullseye"></i> Objektif</h4>
+    <p>Menggalakkan semangat kerjasama di antara ibu bapa, guru dan murid dalam mewujudkan persekitaran sekolah yang bersih, ceria dan selamat.</p>
+
+    <h4><i class="fas fa-tasks"></i> Perancangan & Pelaksanaan</h4>
+    <p>Beberapa sesi perbincangan telah dilakukan dan dua tarikh awal telah dipilih (2 dan 9 Ogos 2025) bagi program Pra Gotong Royong. Sumbangan wajib sebanyak RM 30.00 telah ditetapkan bagi menampung kos pembelian cat dan lain-lain keperluan program.</p>
+
+    <h4><i class="fas fa-chart-line"></i> Pascanilai</h4>
+    <p>Sumbangan tenaga kerja yang sangat menggalakkan dari ibu bapa (sekitar 200 orang secara keseluruhannya) dan kesemua kelas Tingkatan 1 telah berubah wajah serta lebih kondusif dan ceria. Mengingatkan agar semua pelajar lebih prihatin dalam menjaga kebersihan dan keceriaan  kelas dan sekolah serta pemantauan yang berterusan oleh guru-guru setiap kelas.</p>
+  </div>
+
+</div>
+
+<div class="gallery carousel">
+  <div class="carousel-track">
+<img src="images/goro/1.jpeg" onclick="openImg(this)">
+<img src="images/goro/2.jpeg" onclick="openImg(this)">
+<img src="images/goro/3.jpeg" onclick="openImg(this)">
+<img src="images/goro/4.jpeg" onclick="openImg(this)">
+<img src="images/goro/5.jpeg" onclick="openImg(this)">
+<img src="images/goro/6.jpeg" onclick="openImg(this)">
+<img src="images/goro/7.jpeg" onclick="openImg(this)">
+<img src="images/goro/8.jpeg" onclick="openImg(this)">
+<img src="images/goro/9.jpeg" onclick="openImg(this)">
+<img src="images/goro/10.jpeg" onclick="openImg(this)">
+<img src="images/goro/11.jpeg" onclick="openImg(this)">
+<img src="images/goro/12.jpeg" onclick="openImg(this)">
+<img src="images/goro/13.jpeg" onclick="openImg(this)">
+<img src="images/goro/14.jpeg" onclick="openImg(this)">
+<img src="images/goro/1.jpeg" onclick="openImg(this)">
+  </div>
+</div>
+</div>
+
+<!-- 5 -->
+<div class="card">
+<h3>Ceramah Kesedaran & Kempen Sifar Buli : 27 Sept 2025</h3>
+<div class="activity-info">
+
+  <button class="more-btn" onclick="toggleDetail(this)">
+    Klik di sini untuk maklumat lanjut
+  </button>
+
+  <div class="activity-detail">
+    <h4><i class="fas fa-bullseye"></i> Objektif</h4>
+    <p>Melahirkan generasi baharu SMAPK yang berani bersuara, saling menghormati, dan sentiasa menyokong antara satu sama lain bagi menangani kes buli.</p>
+
+    <h4><i class="fas fa-tasks"></i> Perancangan & Pelaksanaan</h4>
+    <p>Segala perancangan dan kos melibatkan program akan ditanggung sepenuhnya oleh KSIB NEURO dengan kerjasama UBK Sekolah. Jabatan Penjara Malaysia telah bersetuju untuk mengadakan Mini Pameran pada hari tersebut.</p>
+
+    <h4><i class="fas fa-chart-line"></i> Pascanilai</h4>
+    <p>Kos Keseluruhan bagi menjayakan program hanya sebanyak RM157.50 dengan bantuan hasil jualan lebihan cat dan peralatan dari Program GoRo yang lepas dan sumbangan ikhlas ibu bapa bagi cenderhati kepada penceramah. Penglibatan pelajar T1 - T4 pastinya akan memberikan impak yang besar dalam memberikan kesedaran terhadap isu buli. Pemantauan berterusan dari ibu bapa dan pihak sekolah dalam mencapai matlamat Sifar Buli.</p>
+  </div>
+
+</div>
+
+<div class="gallery carousel">
+  <div class="carousel-track">
+<img src="images/antibully/1.png" onclick="openImg(this)">
+<img src="images/antibully/2.png" onclick="openImg(this)">
+<img src="images/antibully/3.png" onclick="openImg(this)">
+<img src="images/antibully/4.jpeg" onclick="openImg(this)">
+<img src="images/antibully/5.jpeg" onclick="openImg(this)">
+<img src="images/antibully/6.jpeg" onclick="openImg(this)">
+<img src="images/antibully/7.jpeg" onclick="openImg(this)">
+<img src="images/antibully/8.jpeg" onclick="openImg(this)">
+<img src="images/antibully/9.jpeg" onclick="openImg(this)">
+<img src="images/antibully/1.png" onclick="openImg(this)">
+<img src="images/antibully/2.png" onclick="openImg(this)">
+<img src="images/antibully/4.jpeg" onclick="openImg(this)">
+<img src="images/antibully/5.jpeg" onclick="openImg(this)">
+<img src="images/antibully/6.jpeg" onclick="openImg(this)">
+  </div>
+</div>
+</div>
+
+<!-- 6 -->
+<div class="card">
+<h3>Kelas Tambahan Hujung Minggu : Setiap Sabtu Jam 2 – 4 Petang</h3>
+<div class="activity-info">
+
+  <button class="more-btn" onclick="toggleDetail(this)">
+    Klik di sini untuk maklumat lanjut
+  </button>
+
+  <div class="activity-detail">
+    <h4><i class="fas fa-bullseye"></i> Objektif</h4>
+    <p>Membantu meningkatkan pencapaian akademik anak-anak dengan mengisi ruangan yang telah diberikan oleh pihak sekolah pada setiap hari Sabtu selama 2 jam.</p>
+
+    <h4><i class="fas fa-tasks"></i> Perancangan & Pelaksanaan</h4>
+    <p>Dilaksanakan mengikut perancangan kelas masing-masing sama ada bagi memanggil guru dari SMAPK sendiri atau guru dari luar atau sukarelawan dari ibu bapa sendiri bagi membantu
+anak-anak.</p>
+
+    <h4><i class="fas fa-chart-line"></i> Pascanilai</h4>
+    <p>Program berjalan lancar dan sedikit sebanyak dapat membantu pelajar dalam meningkatkan pemahaman dan menyiapkan tugasan yang telah diberikan oleh guru.</p>
+  </div>
+
+</div>
+
+<div class="gallery carousel">
+  <div class="carousel-track">
+<img src="images/tuition/1.jpeg" onclick="openImg(this)">
+<img src="images/tuition/2.jpeg" onclick="openImg(this)">
+<img src="images/tuition/3.jpeg" onclick="openImg(this)">
+<img src="images/tuition/4.jpeg" onclick="openImg(this)">
+<img src="images/tuition/5.jpeg" onclick="openImg(this)">
+<img src="images/tuition/1.jpeg" onclick="openImg(this)">
+<img src="images/tuition/2.jpeg" onclick="openImg(this)">
+<img src="images/tuition/3.jpeg" onclick="openImg(this)">
+<img src="images/tuition/4.jpeg" onclick="openImg(this)">
+<img src="images/tuition/5.jpeg" onclick="openImg(this)">
+<img src="images/tuition/1.jpeg" onclick="openImg(this)">
+<img src="images/tuition/2.jpeg" onclick="openImg(this)">
+<img src="images/tuition/3.jpeg" onclick="openImg(this)">
+<img src="images/tuition/4.jpeg" onclick="openImg(this)">
+<img src="images/tuition/5.jpeg" onclick="openImg(this)">
+  </div>
+</div>
+</div>
+
+<!-- 7 -->
+<div class="card">
+<h3>Lawatan & Pemantauan Asrama & PREP</h3>
+<div class="activity-info">
+
+  <button class="more-btn" onclick="toggleDetail(this)">
+    Klik di sini untuk maklumat lanjut
+  </button>
+
+  <div class="activity-detail">
+    <h4><i class="fas fa-bullseye"></i> Objektif</h4>
+    <p>Memerhatikan aktiviti anak-anak sepanjang di asrama bagi melihat tahap penyesuaian diri dan pengurusan masa anak-anak berikutan aduan dan kerisauan dari ibu bapa.</p>
+
+    <h4><i class="fas fa-tasks"></i> Perancangan & Pelaksanaan</h4>
+    <p>Lawatan secara rawak telah dilakukan bersama wakil dari PIBG Sekolah (YDP PIBG Tuan Haji Yuamri) serta mendapatkan maklumbalas dari anak-anak berhubung kehidupan mereka seharian di asrama.</p>
+
+    <h4><i class="fas fa-chart-line"></i> Pascanilai</h4>
+    <p>Program berjalan lancar dan mendapat maklum balas positif dari ibu bapa. Anak-anak juga sudah mula menyesuaikan diri dan memahami rutin seharian di sekolah berasrama penuh.</p>
+  </div>
+
+</div>
+
+<div class="gallery carousel">
+  <div class="carousel-track">
+<img src="images/asrama/1.jpeg" onclick="openImg(this)">
+<img src="images/asrama/2.jpeg" onclick="openImg(this)">
+<img src="images/asrama/3.jpeg" onclick="openImg(this)">
+<img src="images/asrama/4.jpeg" onclick="openImg(this)">
+<img src="images/asrama/5.jpeg" onclick="openImg(this)">
+<img src="images/asrama/6.jpeg" onclick="openImg(this)">
+<img src="images/asrama/7.jpeg" onclick="openImg(this)">
+<img src="images/asrama/8.jpeg" onclick="openImg(this)">
+<img src="images/asrama/1.jpeg" onclick="openImg(this)">
+<img src="images/asrama/2.jpeg" onclick="openImg(this)">
+<img src="images/asrama/3.jpeg" onclick="openImg(this)">
+<img src="images/asrama/4.jpeg" onclick="openImg(this)">
+<img src="images/asrama/5.jpeg" onclick="openImg(this)">
+<img src="images/asrama/6.jpeg" onclick="openImg(this)">
+<img src="images/asrama/7.jpeg" onclick="openImg(this)">
+  </div>
+</div>
+</div>
+
+<!-- 8 -->
+<div class="card">
+<h3>Perbincangan Aplikasi SASBADI i-Learn : 25 Okt 2025</h3>
+<div class="activity-info">
+
+  <button class="more-btn" onclick="toggleDetail(this)">
+    Klik di sini untuk maklumat lanjut
+  </button>
+
+  <div class="activity-detail">
+    <h4><i class="fas fa-bullseye"></i> Objektif</h4>
+    <p>Memperkenalkan medium alternatif bagi anak-anak dan ibu bapa dalam membantu meningkatkan pencapaian akademik anak-anak dengan kelas dan nota secara atas talian.</p>
+
+    <h4><i class="fas fa-tasks"></i> Perancangan & Pelaksanaan</h4>
+    <p>Pembentangan secara atas talian telah diadakan bagi memberikan penerangan secara lebih lanjut mengenai applikasi tersebut serta kelebihan dan kekurangan applikasi tersebut untuk makluman ibu bapa.</p>
+
+    <h4><i class="fas fa-chart-line"></i> Pascanilai</h4>
+    <p>Program berjalan lancar akan tetapi keputusan penggunaan applikasi tersebut bagi tujuan yang dinyatakan masih belum diputuskan.</p>
+  </div>
+
+</div>
+
+<div class="gallery carousel">
+  <div class="carousel-track">
+<img src="images/sasbadi/1.png" onclick="openImg(this)">
+<img src="images/sasbadi/2.png" onclick="openImg(this)">
+<img src="images/sasbadi/3.png" onclick="openImg(this)">
+<img src="images/sasbadi/4.png" onclick="openImg(this)">
+<img src="images/sasbadi/5.png" onclick="openImg(this)">
+<img src="images/sasbadi/1.png" onclick="openImg(this)">
+<img src="images/sasbadi/2.png" onclick="openImg(this)">
+<img src="images/sasbadi/3.png" onclick="openImg(this)">
+<img src="images/sasbadi/4.png" onclick="openImg(this)">
+<img src="images/sasbadi/5.png" onclick="openImg(this)">
+<img src="images/sasbadi/1.png" onclick="openImg(this)">
+<img src="images/sasbadi/2.png" onclick="openImg(this)">
+<img src="images/sasbadi/3.png" onclick="openImg(this)">
+<img src="images/sasbadi/4.png" onclick="openImg(this)">
+<img src="images/sasbadi/5.png" onclick="openImg(this)">>
+  </div>
+</div>
+</div>
+
+<!-- 9 -->
+<div class="card">
+<h3>Hari Koperasi Sekolah : 13 Dis 2025</h3>
+<div class="activity-info">
+
+  <button class="more-btn" onclick="toggleDetail(this)">
+    Klik di sini untuk maklumat lanjut
+  </button>
+
+  <div class="activity-detail">
+    <h4><i class="fas fa-bullseye"></i> Objektif</h4>
+    <p>Meningkatkan semangat kerjasama di antara anak-anak dan memberikan peluang bagi anak-anak untuk mempelajari ilmu perniagaan. 
+.</p>
+
+    <h4><i class="fas fa-tasks"></i> Perancangan & Pelaksanaan</h4>
+    <p>Dilaksanakan mengikut takwim dan perancangan pihak sekolah dan dibantu oleh ibu bapa dari setiap kelas dalam memberikan cadangan dan sumbangan bagi barangan jualan.</p>
+
+    <h4><i class="fas fa-chart-line"></i> Pascanilai</h4>
+    <p>Program berjalan lancar dan anak-anak mendapat pengalaman yang sangat berguna dalam mempelajari ilmu perniagaan. Kerjasama di antara rakan sekelas juga semakin akrab dalam mempromosikan jualan masing-masing.</p>
+  </div>
+
+</div>
+
+<div class="gallery carousel">
+  <div class="carousel-track">
+<img src="images/koperasi/1.png" onclick="openImg(this)">
+<img src="images/koperasi/2.png" onclick="openImg(this)">
+<img src="images/koperasi/3.png" onclick="openImg(this)">
+<img src="images/koperasi/4.png" onclick="openImg(this)">
+<img src="images/koperasi/5.png" onclick="openImg(this)">
+<img src="images/koperasi/1.png" onclick="openImg(this)">
+<img src="images/koperasi/2.png" onclick="openImg(this)">
+<img src="images/koperasi/3.png" onclick="openImg(this)">
+<img src="images/koperasi/4.png" onclick="openImg(this)">
+<img src="images/koperasi/5.png" onclick="openImg(this)">
+<img src="images/koperasi/1.png" onclick="openImg(this)">
+<img src="images/koperasi/2.png" onclick="openImg(this)">
+<img src="images/koperasi/3.png" onclick="openImg(this)">
+<img src="images/koperasi/4.png" onclick="openImg(this)">
+<img src="images/koperasi/5.png" onclick="openImg(this)">
+  </div>
+</div>
+</div>
+
+<!-- 10 -->
+<div class="card">
+<h3>Mesyuarat Agung KSIB NEURO 2025 : 16 Dis 2025</h3>
+<div class="activity-info">
+
+  <button class="more-btn" onclick="toggleDetail(this)">
+    Klik di sini untuk maklumat lanjut
+  </button>
+
+  <div class="activity-detail">
+    <h4><i class="fas fa-bullseye"></i> Objektif</h4>
+    <p>Membentangkan laporan aktiviti dan kewangan KSIB NEURO 2529 bagi tahun 2025 serta membincangkan tentang hala tuju dan matlamat KSIB NEURO bagi tahun 2026 kelak.</p>
+
+    <h4><i class="fas fa-tasks"></i> Perancangan & Pelaksanaan</h4>
+    <p>Dilaksanakan mengikut takwim dan perancangan KSIB NEURO dan dibentangkan oleh Pengerusi KSIB NEURO 2025 secara atas talian. Tarikh dan waktu telah dipilih mengikut undian ramai yang telah dibincangkan di Group Whatsapp.</p>
+
+    <h4><i class="fas fa-chart-line"></i> Pascanilai</h4>
+    <p>Program berjalan lancar dan mendapat maklum balas positif. Seramai lebih 60 keluarga telah melibatkan diri dan mendengar taklimat yang diberikan meskipun dijayakan sewaktu minggu bekerja.</p>
+  </div>
+
+</div>
+
+<div class="gallery carousel">
+  <div class="carousel-track">
+<img src="images/agm/1.png" onclick="openImg(this)">
+<img src="images/agm/2.png" onclick="openImg(this)">
+<img src="images/agm/3.png" onclick="openImg(this)">
+<img src="images/agm/4.png" onclick="openImg(this)">
+<img src="images/agm/5.png" onclick="openImg(this)">
+<img src="images/agm/6.png" onclick="openImg(this)">
+<img src="images/agm/7.png" onclick="openImg(this)">
+<img src="images/agm/8.png" onclick="openImg(this)">
+<img src="images/agm/9.png" onclick="openImg(this)">
+<img src="images/agm/10.png" onclick="openImg(this)">
+<img src="images/agm/3.png" onclick="openImg(this)">
+<img src="images/agm/4.png" onclick="openImg(this)">
+<img src="images/agm/5.png" onclick="openImg(this)">
+<img src="images/agm/6.png" onclick="openImg(this)">
+<img src="images/agm/7.png" onclick="openImg(this)">
+  </div>
+</div>
+</div>
+
+<!-- 11 -->
+<div class="card">
+<h3>Perbincangan WhatsApp & Telegram : Bermula Sesi Persekolahan</h3>
+<div class="activity-info">
+
+  <button class="more-btn" onclick="toggleDetail(this)">
+    Klik di sini untuk maklumat lanjut
+  </button>
+
+  <div class="activity-detail">
+    <h4><i class="fas fa-bullseye"></i> Objektif</h4>
+    <p>Menyediakan medium perbincangan dan penyaluran maklumat secara santai dan mudah kepada semua ibu bapa Batch NEURO 2529.</p>
+
+    <h4><i class="fas fa-tasks"></i> Perancangan & Pelaksanaan</h4>
+    <p>Diasaskan oleh YDP PIBG dan GPK HEM pada awal sesi persekolahan 2025. Kesemua ibu bapa dan penjaga anak-anak sangat dialu-alukan untuk membincangkan atau mengajukan sebarang persoalan atau aduan ke dalam group tersebut yang turut disertai oleh Guru Penyelaras, Guru UBK dan wakil-wakil PIBG.</p>
+
+    <h4><i class="fas fa-chart-line"></i> Pascanilai</h4>
+    <p>Aktiviti berjalan lancar dan mendapat maklum balas positif. Ibu bapa mudah untuk mengajukan sebarang pertanyaan, aduan serta mendapatkan info.</p>
+  </div>
+
+</div>
+
+<div class="gallery carousel">
+  <div class="carousel-track">
+<img src="images/whatsapp/1.jpeg" onclick="openImg(this)" alt="whatsapp1">
+<img src="images/whatsapp/2.jpeg" onclick="openImg(this)" alt="whatsapp2">
+<img src="images/whatsapp/3.jpeg" onclick="openImg(this)" alt="whatsapp3">
+<img src="images/whatsapp/4.jpeg" onclick="openImg(this)" alt="whatsapp4">
+<img src="images/whatsapp/5.jpg" onclick="openImg(this)" alt="whatsapp5">
+<img src="images/whatsapp/6.jpg" onclick="openImg(this)" alt="whatsapp6">
+<img src="images/whatsapp/7.jpeg" onclick="openImg(this)" alt="whatsapp7">
+<img src="images/whatsapp/1.jpeg" onclick="openImg(this)" alt="whatsapp1">
+<img src="images/whatsapp/2.jpeg" onclick="openImg(this)" alt="whatsapp2">
+<img src="images/whatsapp/3.jpeg" onclick="openImg(this)" alt="whatsapp3">
+<img src="images/whatsapp/4.jpeg" onclick="openImg(this)" alt="whatsapp4">
+<img src="images/whatsapp/5.jpg" onclick="openImg(this)" alt="whatsapp5">
+<img src="images/whatsapp/6.jpg" onclick="openImg(this)" alt="whatsapp6">
+<img src="images/whatsapp/7.jpeg" onclick="openImg(this)" alt="whatsapp7">
+<img src="images/whatsapp/3.jpeg" onclick="openImg(this)" alt="whatsapp3">
+  </div>
+</div>
+</div>
+
+</section>
+
+<section id="finance">
+<h2><i class="fas fa-coins"></i> Ringkasan Kewangan</h2>
+
+<div class="card finance-layout">
+
+  <div class="finance-text">
+    <p>
+      Ringkasan kewangan KSIB NEURO 2529 bagi tahun 2025
+      merangkumi rekod kutipan, perbelanjaan dan baki semasa
+      yang telah diaudit secara dalaman dan boleh diakses oleh 
+      semua ahli KSIB NEURO 2529 secara atas talian.
+    </p>
+
+    <p>
+      <strong>Baki Terkini (Disember 2025):</strong><br>
+      <span class="finance-balance">RM2,388.80</span>
+    </p>
+  </div>
+
+  <div class="finance-images">
+    <img src="images/finance-summary-1.png" alt="Ringkasan Kewangan 1">
+    <img src="images/finance-summary-2.png" alt="Ringkasan Kewangan 2">
+  </div>
+
+</div>
+</section>
+
+
+<section id="contact">
+<h2><strong>Hubungi Kami</strong></h2>
+
+<div class="card">
+
+<strong>Nama Persatuan:</strong> KSIB NEURO 2529<br>
+<strong>Alamat:</strong> SMAP Kajang, Batu 13, Jalan Cheras, Kajang, Selangor<br>
+<strong>No Tel:</strong> 03-87362324<br>
+<strong>Email:</strong> ksibneuro2529@gmail.com<br>
+
+<h3><strong>Lokasi Sekolah</strong></h3>
+
+<iframe
+  src="https://www.google.com/maps?q=SMAP%20Kajang%20Batu%2013%20Jalan%20Cheras&output=embed"
+  width="100%"
+  height="300"
+  style="border:0;border-radius:14px;"
+  allowfullscreen=""
+  loading="lazy">
+</iframe>
+<br><br>
+
+<h3><strong>Cadangan & Maklum Balas</strong></h3>
+
+<form class="feedback-form" id="feedbackForm">
+  <input type="text" name="entry.1774477669" placeholder="Nama (Pilihan)">
+  <input type="email" name="entry.1209983228" placeholder="Email (Pilihan)">
+  <textarea name="entry.1803434170" rows="4"
+    placeholder="Cadangan / Maklum balas anda" required></textarea>
+
+  <button type="submit">Hantar</button>
+</form>
+
+
+<p style="margin-top:10px;font-size:14px">
+Atau isi melalui Google Form:
+<a href="https://forms.gle/YkyV8qT3mqvT64Bb7 " target="_blank">
+Klik di sini
+</a>
+</p>
+
+</div>
+</section>
+
+<footer>
+© 2025 KSIB NEURO 2529<br>
+<a href="https://www.facebook.com/smapkj" target="_blank"><i class="fab fa-facebook"></i></a>
+<a href="https://www.instagram.com/smapk.official/" target="_blank"><i class="fab fa-instagram"></i></a>
+<a href="https://web.whatsapp.com/" target="_blank"><i  class="fab fa-whatsapp"></i></a>
+</footer>
+
+<div class="modal" id="imgModal" onclick="closeImg()">
+<img id="modalImg">
+</div>
+
+<script>
+function openImg(img){
+ document.getElementById('modalImg').src=img.src;
+ document.getElementById('imgModal').style.display='flex';
+}
+function closeImg(){
+ document.getElementById('imgModal').style.display='none';
+}
+</script>
+
+<script>
+function toggleDetail(btn){
+  const detail = btn.nextElementSibling;
+  const isOpen = detail.style.display === "block";
+
+  detail.style.display = isOpen ? "none" : "block";
+  btn.textContent = isOpen
+    ? "Klik di sini untuk maklumat lanjut"
+    : "Tutup maklumat";
+}
+</script>
+
+<script>
+document.getElementById("feedbackForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const form = e.target;
+  const data = new FormData(form);
+
+  fetch("https://docs.google.com/forms/d/17PfLz0O2xLBruqnU5IUoomT3H6_paBkGTCqhsoCDQlk/formResponse", {
+    method: "POST",
+    mode: "no-cors",
+    body: data
+  });
+
+  // Show custom modal
+  document.getElementById("feedbackModal").style.display = "flex";
+
+  // Reset form
+  form.reset();
+});
+</script>
+
+<script>
+function handleFeedback(event){
+  event.preventDefault(); // stop page reload
+
+  alert("Terima Kasih. Kami telah menerima cadangan/maklum balas dari anda.");
+
+  // reset form after submission
+  event.target.reset();
+}
+</script>
+
+<script>
+function handleFeedback(event){
+  event.preventDefault();
+
+  document.getElementById("feedbackModal").style.display = "flex";
+  event.target.reset();
+}
+
+function closeFeedbackModal(){
+  document.getElementById("feedbackModal").style.display = "none";
+}
+
+/* close modal when clicking outside */
+document.getElementById("feedbackModal").addEventListener("click", function(e){
+  if(e.target === this){
+    closeFeedbackModal();
+  }
+});
+</script>
+
+<!-- FEEDBACK MODAL -->
+<div class="feedback-modal" id="feedbackModal">
+  <div class="feedback-modal-content">
+    <i class="fas fa-circle-check"></i>
+    <h3>Terima Kasih</h3>
+    <p>
+      Kami telah menerima cadangan / maklum balas daripada anda.
+    </p>
+    <button onclick="closeFeedbackModal()">Tutup</button>
+  </div>
+</div>
+
+</body>
+</html>
+
